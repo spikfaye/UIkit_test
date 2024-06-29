@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <style>
+        #root {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="root"></div>
+</body>
+<script src="https://unpkg.com/@zegocloud/zego-uikit-prebuilt/zego-uikit-prebuilt.js"></script>
+<script>
+    // 通过调用方法生成 Kit Token。
+    // @param 1: appID
+    // @param 2: serverSecret
+    // @param 3: Room ID
+    // @param 4: User ID
+    // @param 5: Username
+    const roomID = "223";
+    const userID = Math.floor(Math.random() * 10000) + "L";
+    const userName = "userName" + userID;
+    const appID = 1220856281;
+    const serverSecret = "1abb4d936ff1b69b8888606c36854275";
+    const kitToken =  ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, userID, userName);
+
+    const zp = ZegoUIKitPrebuilt.create(kitToken);
+    zp.joinRoom({
+        container: document.querySelector("#root"),
+        sharedLinks: [{
+            url: window.location.protocol + '//' + window.location.host + window.location.pathname + '?roomID=' + roomID,
+        }],
+        scenario: {
+           mode: ZegoUIKitPrebuilt.OneONoneCall, //  要实现一对一通话，请将此处的参数修改为[ZegoUIKitPrebuilt.OneONoneCall]。
+        },
+        // 设置语言为中文
+        language: "zh-CN",
+    });
+</script>
+
+</html>
